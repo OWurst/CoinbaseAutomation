@@ -1,2 +1,3 @@
-ipynb
+ipykernel
 coinbase-advanced-py
+pyYAML

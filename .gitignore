@@ -3,3 +3,4 @@ API_KeyNames.txt
 *.priv
 *.pem
 /env/
+*/__pycache__/
