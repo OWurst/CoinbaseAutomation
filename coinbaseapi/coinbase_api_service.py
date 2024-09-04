@@ -14,17 +14,13 @@ class CoinbaseApiService:
             key_id = config['apikey-id']
             org_id = config['org-id']
 
-            api_key = 'organizations/{org_id}/apiKeys{key_id}'.format(org_id=org_id, key_id=key_id)
-            secret_key_filename = config['privkey-filename']
+            self.api_key = 'organizations/{org_id}/apiKeys{key_id}'.format(org_id=org_id, key_id=key_id)
+            self.api_secret = config['privkey']
 
-            api_secret = read_pem(secret_key_filename)
-
-            self.client = RESTClient(api_key=api_key, api_secret=api_secret)
+            self.client = RESTClient(api_key=self.api_key, api_secret=self.api_secret)
 
     def get_accounts(self):
         return self.client.get_accounts()
-
-def read_pem(filename):
-    with open(filename, 'r') as file:
-        secret_key = file.read()
-        return secret_key    
+    
+    def create_portfolio(self, name):
+        return self.client.create_portfolio(name=name)
