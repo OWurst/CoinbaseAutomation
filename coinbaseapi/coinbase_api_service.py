@@ -4,6 +4,7 @@ import yaml
 # constants
 CONFIG_FILENAME = 'coinbase-api-config.yaml'
 CLIENT_TIMEOUT_SECONDS = 'undefined'
+DEFAULT_CURRENCY = 'USDC'
 
 class CoinbaseApiService:
     def __init__(self):
@@ -14,7 +15,7 @@ class CoinbaseApiService:
             key_id = config['apikey-id']
             org_id = config['org-id']
 
-            self.api_key = 'organizations/{org_id}/apiKeys{key_id}'.format(org_id=org_id, key_id=key_id)
+            self.api_key = 'organizations/{org_id}/apiKeys/{key_id}'.format(org_id=org_id, key_id=key_id)
             self.api_secret = config['privkey']
 
             self.client = RESTClient(api_key=self.api_key, api_secret=self.api_secret)
@@ -22,5 +23,10 @@ class CoinbaseApiService:
     def get_accounts(self):
         return self.client.get_accounts()
     
-    def create_portfolio(self, name):
-        return self.client.create_portfolio(name=name)
+    def buy_crypto(self, amount, currency, orderId=""):
+        quote_size = str(amount)
+        product_id = currency + '-' + DEFAULT_CURRENCY
+
+        order = self.client.market_order_buy(client_order_id=orderId, product_id=product_id, quote_size=quote_size)
+        return order
+    
