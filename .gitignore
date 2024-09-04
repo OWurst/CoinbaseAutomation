@@ -4,3 +4,4 @@ API_KeyNames.txt
 *.pem
 /env/
 */__pycache__/
+api_building.ipynb
