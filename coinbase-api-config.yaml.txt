@@ -1,0 +1,9 @@
+privkey: "-----BEGIN EC PRIVATE KEY-----\n...\n-----END EC PRIVATE KEY-----\n"
+apikey-id: ""
+org-id: ""
+
+order-timeout: -1
+default-currency: 'USDC'
+asset-currencies:
+  - 'BTC'
+  - 'ETH'
