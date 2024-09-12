@@ -40,6 +40,20 @@ class CoinbaseApiService:
         order = self.client.market_order_sell(client_order_id=orderId, product_id=product_id, quote_size=quote_size)
         return order
     
-    def get_candles(self, currency, start, end, granularity):
+    def get_candles(self, currency, granularity=60, start=None, end=None):
+        pass
+
+    def get_order(self, orderId):
+        return self.client.get_order(orderId)
+
+    def save_order(self, order):
+        # save order data to database
+        pass
+
+    def get_orders(self, status=None, currency=None, start=None, end=None):
+        # fetch orders from database based on provided params, else return all orders
         pass
     
+    def get_holdings(self):
+        # fetch holdings from coinbase
+        pass

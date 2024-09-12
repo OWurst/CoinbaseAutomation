@@ -10,3 +10,7 @@ class CoinbaseAPIServicePaperTrading(CoinbaseAPIService):
     def sell_crypto(self, amount, currency, orderId=""):
         print("Paper trading: sell_crypto")
         return None
+    
+    def get_holdings(self):
+        print("Paper trading: get_holdings")
+        return None
