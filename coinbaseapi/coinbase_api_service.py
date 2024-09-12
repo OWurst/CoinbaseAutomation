@@ -1,5 +1,6 @@
 from coinbase.rest import RESTClient
 import yaml
+import ccxt
 
 # constants
 CONFIG_FILENAME = 'coinbase-api-config.yaml'
@@ -17,6 +18,8 @@ class CoinbaseApiService:
             self.api_secret = config['privkey']
 
             self.default_currency = config['default-currency']
+
+            self.exchange = ccxt.coinbaseadvanced()
 
             self.client = RESTClient(api_key=self.api_key, api_secret=self.api_secret)
 
@@ -36,4 +39,7 @@ class CoinbaseApiService:
 
         order = self.client.market_order_sell(client_order_id=orderId, product_id=product_id, quote_size=quote_size)
         return order
+    
+    def get_candles(self, currency, start, end, granularity):
+        pass
     
