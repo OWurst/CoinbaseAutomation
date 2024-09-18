@@ -1,6 +1,8 @@
 from coinbase.rest import RESTClient
 import yaml
 import ccxt
+import sqlite3
+import database_interface as dbi
 
 # constants
 CONFIG_FILENAME = 'coinbase-api-config.yaml'
@@ -22,6 +24,12 @@ class CoinbaseApiService:
             self.exchange = ccxt.coinbaseadvanced()
 
             self.client = RESTClient(api_key=self.api_key, api_secret=self.api_secret)
+
+            self.init_db()
+            
+    def init_db(self):
+        conn = sqlite3.connect('coinbase-trading.db')
+        self.db_interface = dbi.DatabaseInterface(conn)
 
     def get_accounts(self):
         return self.client.get_accounts()

@@ -14,3 +14,8 @@ class CoinbaseAPIServicePaperTrading(CoinbaseAPIService):
     def get_holdings(self):
         print("Paper trading: get_holdings")
         return None
+    
+class TestAccountValue():
+    def __init__(self, value, time):
+        self.value = value
+        self.time = time
