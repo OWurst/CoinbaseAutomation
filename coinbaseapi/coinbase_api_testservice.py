@@ -1,9 +1,26 @@
-# class extends coinbase_api_service
+import sqlite3
 
 from coinbaseapi.coinbase_api_service import CoinbaseApiService
 import coinbaseapi.database_interface as dbi
 
-class CoinbaseAPIServicePaperTrading(CoinbaseApiService):
+# class extends coinbase_api_service
+class CoinbaseApiPaperTradingService(CoinbaseApiService):
+    def init_db(self):
+        file = "coinbaseapi/paper_trading.db"
+        self.db_interface = dbi.DatabaseInterface(file)
+
+        conn = sqlite3.connect(file)
+        c = conn.cursor()
+        c.execute('''
+            CREATE TABLE IF NOT EXISTS test_account_values (
+                value REAL,
+                time DATETIME
+            )
+        ''')
+        c.close()
+        conn.commit()
+        conn.close()
+
     def buy_crypto(self, amount, currency, orderId=""):
         print("Paper trading: buy_crypto")
         return None
@@ -15,11 +32,6 @@ class CoinbaseAPIServicePaperTrading(CoinbaseApiService):
     def get_holdings(self):
         print("Paper trading: get_holdings")
         return None
-    
-    def init_db(self):
-        print("Paper trading: init_db")
-        return None
-    
 class TestAccountValue():
     def __init__(self, value, time):
         self.value = value

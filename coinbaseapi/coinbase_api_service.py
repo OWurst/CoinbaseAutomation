@@ -28,8 +28,8 @@ class CoinbaseApiService:
             self.init_db()
             
     def init_db(self):
-        conn = sqlite3.connect('coinbase-trading.db')
-        self.db_interface = dbi.DatabaseInterface(conn)
+        file = "coinbaseapi/trading.db"
+        self.db_interface = dbi.DatabaseInterface(file)
 
     def get_accounts(self):
         return self.client.get_accounts()
