@@ -5,3 +5,5 @@ API_KeyNames.txt
 /env/
 */__pycache__/
 api_building.ipynb
+*.db
+*.ipynb

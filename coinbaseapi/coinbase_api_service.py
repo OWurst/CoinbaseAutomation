@@ -2,7 +2,7 @@ from coinbase.rest import RESTClient
 import yaml
 import ccxt
 import sqlite3
-import database_interface as dbi
+import coinbaseapi.database_interface as dbi
 
 # constants
 CONFIG_FILENAME = 'coinbase-api-config.yaml'
