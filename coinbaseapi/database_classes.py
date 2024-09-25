@@ -13,11 +13,10 @@ class Transaction():
         return "Transaction ID: {transaction_id}, Type: {type}, Amount: {amount}, Asset: {asset}, Value: {value}, Timestamp: {timestamp}".format(transaction_id=self.transaction_id, type=self.type, amount=self.amount, asset=self.asset, value=self.value, timestamp=self.timestamp)
 
 class Holding():
-    def __init__(self, asset="unknown", amount=0, value=0):
+    def __init__(self, asset="unknown", amount=0):
         self.asset = asset
         self.amount = amount
-        self.value = value
 
     def __str__(self):
-        return "Asset: {asset}, Amount: {amount}, Value: {value}".format(asset=self.asset, amount=self.amount, value=self.value)
+        return "Asset: {asset}, Amount: {amount}".format(asset=self.asset, amount=self.amount)
     

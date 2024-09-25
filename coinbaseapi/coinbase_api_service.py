@@ -54,9 +54,11 @@ class CoinbaseApiService:
     def get_order(self, orderId):
         return self.client.get_order(orderId)
 
-    def save_order(self, order):
-        # save order data to database
-        pass
+    def save_transaction(self, order):
+        self.db_interface.store_transaction(order)
+
+    def save_holding(self, holding):
+        self.db_interface.store_holding(holding)
 
     def get_orders(self, status=None, currency=None, start=None, end=None):
         # fetch orders from database based on provided params, else return all orders

@@ -20,10 +20,11 @@ class DatabaseInterface:
         c.execute('''
             CREATE TABLE IF NOT EXISTS transactions (
                 transaction_id INTEGER PRIMARY KEY,
-                type TEXT, amount REAL,
+                timestamp DATETIME,
                 asset TEXT,
-                value REAL,
-                timestamp DATETIME
+                type TEXT, 
+                amount REAL,
+                value REAL
             )
         ''')
         c.close()
@@ -33,33 +34,45 @@ class DatabaseInterface:
         c.execute('''
             CREATE TABLE IF NOT EXISTS holdings (
                 asset TEXT PRIMARY KEY,
-                amount REAL,
-                value REAL
+                amount REAL
             )
         ''')
         c.close()
 
     def store_transaction(self, transaction):
-        conn = sqlite3.connect(self.db_filename)
-        c = conn.cursor()
-        c.execute('''
-            INSERT INTO transactions (type, amount, asset, value, timestamp)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (transaction.type, transaction.amount, transaction.asset, transaction.value, transaction.timestamp))
-        c.close()
-        conn.commit()
-        conn.close()
+        try:
+            conn = sqlite3.connect(self.db_filename)
+            c = conn.cursor()
+            c.execute('''
+                INSERT INTO transactions (transaction_id, timestamp, type, amount, asset, value)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (transaction.transaction_id, transaction.timestamp, transaction.type, transaction.amount, transaction.asset, transaction.value))
+            c.close()
+            conn.commit()
+            conn.close()
+        except sqlite3.IntegrityError:
+            print("Transaction already exists in database")
 
     def store_holding(self, holding):
         conn = sqlite3.connect(self.db_filename)
         c = conn.cursor()
         c.execute('''
-            INSERT INTO holdings (asset, amount, value)
-            VALUES (?, ?, ?)
+            INSERT INTO holdings (asset, amount)
+            VALUES (?, ?)
             ON CONFLICT(asset) DO UPDATE SET 
-                amount = excluded.amount,
-                value = excluded.value
-        ''', (holding.asset, holding.amount, holding.value))
+                amount = excluded.amount
+        ''', (holding.asset, holding.amount))
+        c.close()
+        conn.commit()
+        conn.close()
+
+    def store_historical_resource_ownership(self, historical_resource_ownership):
+        conn = sqlite3.connect(self.db_filename)
+        c = conn.cursor()
+        c.execute('''
+            INSERT INTO test_account_values (value, time, asset, amount)
+            VALUES (?, ?, ?, ?)
+        ''', (historical_resource_ownership.value, historical_resource_ownership.timestamp, historical_resource_ownership.asset, historical_resource_ownership.amount))
         c.close()
         conn.commit()
         conn.close()
