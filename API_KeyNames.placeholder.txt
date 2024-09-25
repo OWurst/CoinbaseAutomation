@@ -1,3 +1,5 @@
+I use this to hold onto the necessary data so I can use different portfolios
+
 ### Original automated trading id
 # organization id
 
