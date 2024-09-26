@@ -9,3 +9,4 @@ apibuilding.ipynb
 automation_system_research.ipynb
 *.db
 *.ipynb
+*.db-journal
