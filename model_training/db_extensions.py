@@ -39,8 +39,15 @@ class SimpleCandleDB(base.BasicTrainingDB):
         self.conn.close()
 
     def insert_candles(self, df):
-        # use lapply to apply insert_candle to each row of the dataframe
-        df.apply(self.insert_candle, axis=1)
+        # insert whole df into db
+        df['candle_id'] = df['asset'] + '_' + df['timestamp']
+
+        self.conn = sqlite3.connect('training_data.db')
+        df.to_sql('candles_{timeframe}'.format(timeframe=self.timeframe), self.conn, if_exists='append', index=False)       
+
+        self.conn.commit()
+        self.conn.close()
+
 
     def create_candles(self, asset='BTC', timeframe='1h', start=None):
         if start is None:

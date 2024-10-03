@@ -3,3 +3,6 @@ coinbase-advanced-py
 pyYAML
 pandas
 ccxt
+numpy
+pandasmatplotlib
+torch
